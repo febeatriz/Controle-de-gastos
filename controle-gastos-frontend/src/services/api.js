@@ -1,4 +1,4 @@
-const API_URL = "https://controle-de-gastos-xvl2.onrender.com/transacoes";
+const API_URL = "https://controle-de-gastos-xvl2.onrender.com";
 
 export const buscarTodas = async () => {
     const response = await fetch(API_URL);
