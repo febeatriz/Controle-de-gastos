@@ -12,7 +12,7 @@ export const buscarPorMes = async (mes, ano) => {
 
 export const buscarResumo = async (mes, ano) => {
     const response = await fetch(`${API_URL}/resumo?mes=${mes}&ano=${ano}`);
-    return response.json(); // (provavelmente é JSON, não text)
+    return response.json(); 
 };
 
 export const buscarCategorias = async () => {

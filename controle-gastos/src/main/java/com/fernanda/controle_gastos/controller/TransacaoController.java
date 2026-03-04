@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import com.fernanda.controle_gastos.entity.Categoria;
@@ -36,15 +37,14 @@ public class TransacaoController {
             @RequestParam int ano) {
         return service.listarPorMes(mes, ano);
     }
-    
+
     @GetMapping
     public List<Transacao> listar() {
         return service.listarTodas();
     }
 
-    @GetMapping("/resumo")
-    public Map<String, BigDecimal> resumo(@RequestParam int mes,
-            @RequestParam int ano) {
+    @GetMapping(value = "/resumo", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, BigDecimal> resumo(@RequestParam int mes, @RequestParam int ano) {
         return service.resumoMensal(mes, ano);
     }
 
