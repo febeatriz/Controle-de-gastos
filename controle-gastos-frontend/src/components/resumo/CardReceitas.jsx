@@ -28,18 +28,18 @@ function CardReceitas({ total, lista, onExcluir }) {
 
                 {itens.map((t) => (
                     <div key={t.id} className="grid grid-cols-[50px_1fr_80px_25px] sm:grid-cols-[70px_1fr_120px_30px] gap-1 sm:gap-2 sm:text-sm md:text-base py-1 px-2 items-center border-b border-black border-opacity-10">
-                        <span className="text-black text-xs sm:text-sm">{formatarData(t.data)}</span>
+                        <span className="text-black text-md sm:text-sm">{formatarData(t.data)}</span>
 
-                        <span className="text-black text-xs sm:text-sm truncate">
+                        <span className="text-black text-md font-semibold sm:text-sm truncate">
                             {t.categoria}
                         </span>
 
-                        <span className="text-right text-black font-bold text-xs sm:text-sm">
+                        <span className="text-right text-black font-bold text-md sm:text-sm">
                             R$ {t.valor}
                         </span>
 
                         <button
-                            className="bg-transparent border-0 cursor-pointer sm:text-lg hover:text-red-600"
+                            className="bg-transparent border-0 cursor-pointer text-base sm:text-lg hover:text-red-600"
                             onClick={() => onExcluir(t.id)}
                         >
                             ✕

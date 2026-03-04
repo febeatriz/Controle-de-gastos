@@ -1,16 +1,16 @@
 function formatarData(dataISO) {
-    if(!dataISO) return "";
-    if(dataISO instanceof Date){
+    if (!dataISO) return "";
+    if (dataISO instanceof Date) {
         const dia = String(dataISO.getDate()).padStart(2, "0");
         const mes = String(dataISO.getMonth() + 1).padStart(2, "0");
         return `${dia}/${mes}`;
     }
 
-    if(typeof dataISO === "string" && dataISO.includes("T")){
+    if (typeof dataISO === "string" && dataISO.includes("T")) {
         dataISO = dataISO.split("T")[0];
     }
-    if(typeof dataISO === "string" && dataISO.includes("-")){
-        const[ano,mes,dia] = dataISO.split("-");
+    if (typeof dataISO === "string" && dataISO.includes("-")) {
+        const [ano, mes, dia] = dataISO.split("-");
         return `${dia}/${mes}`;
     }
     return String(dataISO); // fallback, caso formato seja inesperado
@@ -29,18 +29,18 @@ function CardDespesas({ total, lista, onExcluir }) {
 
                 {itens.map((t) => (
                     <div key={t.id} className="grid grid-cols-[50px_1fr_80px_25px] sm:grid-cols-[70px_1fr_120px_30px] gap-1 sm:gap-2 sm:text-sm md:text-base py-1 px-2 items-center border-b border-black border-opacity-10">
-                        <span className="text-black text-xs sm:text-sm">{formatarData(t.data)}</span>
+                        <span className="text-black text-md sm:text-sm">{formatarData(t.data)}</span>
 
-                        <span className="text-black text-xs sm:text-sm truncate">
+                        <span className="text-black text-md font-semibold sm:text-sm truncate">
                             {t.categoria}
                         </span>
 
-                        <span className="text-right text-black font-bold text-xs sm:text-sm">
+                        <span className="text-right text-black font-bold text-md sm:text-sm">
                             R$ {t.valor}
                         </span>
 
                         <button
-                            className="bg-transparent border-0 cursor-pointer sm:text-lg hover:text-red-600"
+                            className="bg-transparent border-0 cursor-pointer text-base sm:text-lg hover:text-red-600"
                             onClick={() => onExcluir(t.id)}
                         >
                             ✕

@@ -37,11 +37,11 @@ function ModalTransacao({ fecharModal, atualizar }) {
             <div className="bg-pink-200 p-6 sm:p-8 rounded-2xl w-full sm:w-[400px] shadow-2xl border border-white/10">
                 <h2 className="text-lg sm:text-xl font-bold text-black mb-4">Nova Transação</h2>
 
-                <form onSubmit={handleSubmit} className="flex flex-col text-black">
+                <form onSubmit={handleSubmit} className="flex flex-col text-black ">
                     <select
                         value={categoria}
                         onChange={(e) => setCategoria(e.target.value)}
-                        className="mb-3 p-2 rounded-lg bg-dark-input text-black border-0 focus:outline-none text-sm sm:text-base"
+                        className="mb-3 p-2 rounded-lg bg-dark-input text-black bg-pink-300 focus:outline-none text-sm sm:text-base"
                         required
                     >
                         <option value="">Selecione a categoria</option>
@@ -57,7 +57,7 @@ function ModalTransacao({ fecharModal, atualizar }) {
                         placeholder="Descrição"
                         value={descricao}
                         onChange={(e) => setDescricao(e.target.value)}
-                        className="mb-3 p-2 rounded-lg bg-dark-input border-0 focus:outline-none text-sm sm:text-base"
+                        className="mb-3 p-2 rounded-lg bg-dark-input bg-pink-300 focus:outline-none text-sm sm:text-base"
                     />
 
                     <input
@@ -65,7 +65,7 @@ function ModalTransacao({ fecharModal, atualizar }) {
                         placeholder="Valor"
                         value={valor}
                         onChange={(e) => setValor(e.target.value)}
-                        className="mb-3 p-2 rounded-lg bg-dark-input text-black border-0 focus:outline-none text-sm sm:text-base"
+                        className="mb-3 p-2 rounded-lg bg-dark-input text-black bg-pink-300 focus:outline-none text-sm sm:text-base"
                         required
                     />
 
@@ -73,11 +73,11 @@ function ModalTransacao({ fecharModal, atualizar }) {
                         type="date"
                         value={data}
                         onChange={(e) => setData(e.target.value)}
-                        className="mb-3 p-2 rounded-lg bg-dark-input text-black focus:outline-none text-sm sm:text-base"
+                        className="mb-3 p-2 rounded-lg bg-dark-input text-black bg-pink-300 focus:outline-none text-sm sm:text-base"
                         required
                     />
 
-                    <select value={tipo} onChange={(e) => setTipo(e.target.value)} className="mb-3 p-2 rounded-lg bg-dark-input text-black border-0 focus:outline-none text-sm sm:text-base">
+                    <select value={tipo} onChange={(e) => setTipo(e.target.value)} className="mb-3 p-2 rounded-lg bg-dark-input text-black bg-pink-300 focus:outline-none text-sm sm:text-base">
                         <option value="RECEITA">Receita</option>
                         <option value="DESPESA">Despesa</option>
                         <option value="INVESTIMENTO">Investimento</option>
