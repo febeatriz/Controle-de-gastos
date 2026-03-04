@@ -4,14 +4,14 @@ import CardDespesas from "./CardDespesas";
 import CardInvestimentos from "./CardInvestimentos";
 import { deletarTransacao } from "../../services/api";
 
-function ResumoMensal({ resumo, transacoes }) {
-    if (!resumo) return null;
+function ResumoMensal({ mes, ano }) {
 
-    const partes = resumo.split(",");
-    const receitasTotal = partes[0]?.split(":")[1]?.trim();
-    const despesasTotal = partes[1]?.split(":")[1]?.trim();
-    const investimentosTotal = partes[2]?.split(":")[1]?.trim();
-    const saldo = partes[3]?.split(":")[1]?.trim();
+    const [resumo, setResumo] = useState({
+        receitas: 0,
+        despesas: 0,
+        investimentos: 0,
+        saldo: 0,
+    });
 
     const excluir = async (id) => {
         await deletarTransacao(id);
@@ -21,6 +21,20 @@ function ResumoMensal({ resumo, transacoes }) {
     const receitas = transacoes.filter(t => t.tipo === "RECEITA");
     const despesas = transacoes.filter(t => t.tipo === "DESPESA");
     const investimentos = transacoes.filter(t => t.tipo === "INVESTIMENTO");
+
+    useEffect(() => {
+        (async () => {
+            const data = await buscarResumo(mes, ano);
+
+            // garante números mesmo se vier "50.00" como string
+            setResumo({
+                receitas: Number(data.receitas ?? 0),
+                despesas: Number(data.despesas ?? 0),
+                investimentos: Number(data.investimentos ?? 0),
+                saldo: Number(data.saldo ?? 0),
+            });
+        })();
+    }, [mes, ano]);
 
     return (
         <div>
