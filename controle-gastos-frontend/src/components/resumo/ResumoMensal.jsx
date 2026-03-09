@@ -1,49 +1,21 @@
-import CardSaldo from "./CardSaldo";
-import CardReceitas from "./CardReceitas";
-import CardDespesas from "./CardDespesas";
-import CardInvestimentos from "./CardInvestimentos";
-import { deletarTransacao, buscarResumo } from "../../services/api";
-import { useEffect, useMemo, useState } from "react";
+import { deletarTransacao } from "../../services/api";
+import CardSaldo from "../cards/CardSaldo";
+import CardReceitas from "../cards/CardReceitas";
+import CardDespesas from "../cards/CardDespesas";
+import CardInvestimentos from "../cards/CardInvestimentos";
 
-function ResumoMensal({ mes, ano, transacoes = [] }) {
-    const [resumo, setResumo] = useState({
-        receitas: 0,
-        despesas: 0,
-        investimentos: 0,
-        saldo: 0,
-    });
+function ResumoMensal({ resumo, transacoes = [], onAtualizar }) {
+    const receitas = transacoes.filter((t) => t.tipo === "RECEITA");
+    const despesas = transacoes.filter((t) => t.tipo === "DESPESA");
+    const investimentos = transacoes.filter((t) => t.tipo === "INVESTIMENTO");
 
     const excluir = async (id) => {
+        const confirmar = window.confirm("Deseja realmente excluir esta transação?");
+        if (!confirmar) return;
+
         await deletarTransacao(id);
-        window.location.reload(); // simples por enquanto
+        onAtualizar();
     };
-
-    const receitas = useMemo(
-        () => transacoes.filter((t) => t.tipo === "RECEITA"),
-        [transacoes]
-    );
-    const despesas = useMemo(
-        () => transacoes.filter((t) => t.tipo === "DESPESA"),
-        [transacoes]
-    );
-    const investimentos = useMemo(
-        () => transacoes.filter((t) => t.tipo === "INVESTIMENTO"),
-        [transacoes]
-    );
-
-    // totais (vindos do backend)
-    useEffect(() => {
-        (async () => {
-            const data = await buscarResumo(mes, ano);
-
-            setResumo({
-                receitas: Number(data.receitas ?? 0),
-                despesas: Number(data.despesas ?? 0),
-                investimentos: Number(data.investimentos ?? 0),
-                saldo: Number(data.saldo ?? 0),
-            });
-        })();
-    }, [mes, ano]);
 
     return (
         <div>
@@ -52,8 +24,17 @@ function ResumoMensal({ mes, ano, transacoes = [] }) {
             </div>
 
             <div className="flex flex-col sm:flex-col md:flex-row gap-4 md:gap-8 lg:gap-16 justify-center px-4 sm:px-0">
-                <CardReceitas total={resumo.receitas} lista={receitas} onExcluir={excluir} />
-                <CardDespesas total={resumo.despesas} lista={despesas} onExcluir={excluir} />
+                <CardReceitas
+                    total={resumo.receitas}
+                    lista={receitas}
+                    onExcluir={excluir}
+                />
+
+                <CardDespesas
+                    total={resumo.despesas}
+                    lista={despesas}
+                    onExcluir={excluir}
+                />
             </div>
 
             <div className="px-4 sm:px-0 max-w-[850px] mx-auto">

@@ -1,6 +1,9 @@
 function FloatingButton({ abrirModal }) {
     return (
-        <button className="fixed bottom-4 sm:bottom-6 md:bottom-8 right-4 sm:right-6 md:right-8 w-14 sm:w-16 h-14 sm:h-16 rounded-full bg-blue-500 text-white text-2xl sm:text-3xl shadow-lg hover:bg-blue-600 transition" onClick={abrirModal}>
+        <button
+            onClick={abrirModal}
+            className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-violet-600 text-white text-3xl shadow-lg hover:scale-105 transition"
+        >
             +
         </button>
     );
