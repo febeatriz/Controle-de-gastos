@@ -52,8 +52,6 @@ export const criarTransacao = async (transacao) => {
     if (!response.ok) {
         throw new Error("Erro ao criar transação.");
     }
-
-    return response.json();
 };
 
 export const deletarTransacao = async (id) => {

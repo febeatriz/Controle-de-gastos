@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import com.fernanda.controle_gastos.dto.TransacaoRequestDTO;
 import com.fernanda.controle_gastos.entity.Categoria;
 import com.fernanda.controle_gastos.entity.Transacao;
 import com.fernanda.controle_gastos.service.TransacaoService;
@@ -23,8 +24,8 @@ public class TransacaoController {
     }
 
     @PostMapping
-    public Transacao criar(@RequestBody Transacao transacao) {
-        return service.salvar(transacao);
+    public void criar(@RequestBody TransacaoRequestDTO dto) {
+        service.salvar(dto);
     }
 
     @DeleteMapping("/{id}")
@@ -44,7 +45,8 @@ public class TransacaoController {
     }
 
     @GetMapping(value = "/resumo", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Map<String, BigDecimal> resumo(@RequestParam int mes, @RequestParam int ano) {
+    public Map<String, BigDecimal> resumo(@RequestParam int mes,
+            @RequestParam int ano) {
         return service.resumoMensal(mes, ano);
     }
 

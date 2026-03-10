@@ -9,6 +9,8 @@ function ModalTransacao({ fecharModal, atualizar }) {
     const [categoria, setCategoria] = useState("");
     const [categorias, setCategorias] = useState([]);
     const [erro, setErro] = useState("");
+    const [recorrente, setRecorrente] = useState(false);
+    const [quantidadeMeses, setQuantidadeMeses] = useState(1);
 
     useEffect(() => {
         const carregarCategorias = async () => {
@@ -36,6 +38,8 @@ function ModalTransacao({ fecharModal, atualizar }) {
                 data,
                 tipo,
                 categoria,
+                recorrente,
+                quantidadeMeses,
             };
 
             await criarTransacao(novaTransacao);
@@ -126,7 +130,15 @@ function ModalTransacao({ fecharModal, atualizar }) {
                         </label>
                         <select
                             value={tipo}
-                            onChange={(e) => setTipo(e.target.value)}
+                            onChange={(e) => {
+                                const novoTipo = e.target.value;
+                                setTipo(novoTipo);
+
+                                if (novoTipo !== "DESPESA") {
+                                    setRecorrente(false);
+                                    setQuantidadeMeses(1);
+                                }
+                            }}
                             className="p-3 rounded-xl bg-pink-300 text-black border-0 focus:outline-none text-sm sm:text-base min-h-[48px]"
                         >
                             <option value="RECEITA">Receita</option>
@@ -134,6 +146,39 @@ function ModalTransacao({ fecharModal, atualizar }) {
                             <option value="INVESTIMENTO">Investimento</option>
                         </select>
                     </div>
+
+                    {tipo === "DESPESA" && (
+                        <div className="flex flex-col gap-3 bg-pink-300 rounded-xl p-3">
+                            <label className="flex items-center gap-2 text-sm sm:text-base">
+                                <input
+                                    type="checkbox"
+                                    checked={recorrente}
+                                    onChange={(e) => setRecorrente(e.target.checked)}
+                                />
+                                Este gasto se repete?
+                            </label>
+
+                            {recorrente && (
+                                <div className="flex flex-col">
+                                    <label className="text-sm sm:text-base font-medium mb-1">
+                                        Repetir por quantos meses?
+                                    </label>
+
+                                    <select
+                                        value={quantidadeMeses}
+                                        onChange={(e) => setQuantidadeMeses(Number(e.target.value))}
+                                        className="p-3 rounded-xl bg-pink-200 text-black border-0 focus:outline-none text-sm sm:text-base min-h-[48px]"
+                                    >
+                                        {Array.from({ length: 12 }, (_, i) => (
+                                            <option key={i + 1} value={i + 1}>
+                                                {i + 1} {i + 1 === 1 ? "mês" : "meses"}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                            )}
+                        </div>
+                    )}
 
                     <div className="flex flex-col sm:flex-row gap-3 mt-3">
                         <button
