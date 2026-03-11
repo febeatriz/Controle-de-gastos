@@ -27,6 +27,8 @@ public class TransacaoService {
 
         if (dto.getTipo() == TipoTransacao.DESPESA && recorrente) {
             for (int i = 0; i < quantidadeMeses; i++) {
+                System.out.println("SALVANDO MÊS: " + dto.getData().plusMonths(i));
+
                 Transacao transacao = new Transacao();
                 transacao.setDescricao(dto.getDescricao());
                 transacao.setValor(dto.getValor());
@@ -37,6 +39,8 @@ public class TransacaoService {
                 repository.save(transacao);
             }
         } else {
+            System.out.println("SALVANDO APENAS UMA TRANSAÇÃO");
+            
             Transacao transacao = new Transacao();
             transacao.setDescricao(dto.getDescricao());
             transacao.setValor(dto.getValor());
