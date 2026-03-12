@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:8080";
+const API_BASE = "http://controle-de-gastos-xvl2.onrender.com/transacoes";
 
 export const buscarTodas = async () => {
     const response = await fetch(`${API_BASE}/transacoes`);
